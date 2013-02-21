@@ -13,6 +13,7 @@ Platform:
 
 The following Opscode cookbooks are dependencies:
 
+* apache2
 * java
 * apt
 * opendj `(If you wish to have seperate opendj)`
@@ -55,14 +56,46 @@ Attributes
 Usage
 =====
 
-Simply include the recipe where you want Tomcat on apache server with OpenAM installed.
+Simply include the recipe where you want Tomcat on apache server with OpenAM installed. This cookbook contains three different recipes, namely 
+
+	* full_stack
+	* vanilla
+	* configure
+
+full_stack
+----------
+	This recipe installs apache2, java, tomcat7, OpenAM and OpenDJ in a single instance and the configurations of all has been done in the same instance.
 
 An example for a tomcat-openam full_stack role:
 
 	`name "openam_fullstack"`
 	`run_list "recipe[apt]", "recipe[apache2]", "recipe[tomcat-openam::full_stack]"`
 
+vanilla
+-------
+	This recipe installs apache2, java, tomcat7 and OpenAM in an instance. apache2 and tomcat7 has been configured in the same instance. But configuration of OpenAM needs OpenDJ. 
 
+An example for a tomcat-openam vanilla role:
+
+	`name "openam_vanilla"`
+	`run_list "recipe[apt]", "recipe[apache2]", "recipe[tomcat-openam::vanilla]"`
+
+configure
+---------
+	This recipe is just to configure OpenAM. For this you need OpenDJ. 
+	There is a cookbook for OpenDJ in cookbook website as opendj. 
+	Run opendj in another instance using the `opendj` cookbook. 
+	Give the url id of opendj to `node["tomcat-openam"]["cfg"]["user-store"]["host"]`
+
+An example for a opendj role:
+
+	`name "opendj"`
+	`run_list "recipe[apt]", "recipe[opendj::single_instance]"`
+
+An example for a tomcat-openam configure role:
+
+	`name "openam_configure"`
+	`run_list "recipe[tomcat-openam::configure]"`
 
 
 License and Author
