@@ -82,7 +82,10 @@ An example for a tomcat-openam vanilla role:
 
 configure
 ---------
-This recipe is just to configure OpenAM. For this you need OpenDJ. There is a cookbook for OpenDJ in cookbook website as opendj. Run opendj in another instance using the `opendj` cookbook. Give the url id of opendj to `node["tomcat-openam"]["cfg"]["user-store"]["host"]`
+	This recipe is just to configure OpenAM. For this you need OpenDJ. 
+	There is a cookbook for OpenDJ in cookbook website as opendj. 
+	Run opendj in another instance using the `opendj` cookbook. 
+	Give the url id of opendj to `node["tomcat-openam"]["cfg"]["user-store"]["host"]`
 
 An example for a opendj role:
 
