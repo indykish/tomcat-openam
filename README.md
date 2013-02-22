@@ -74,9 +74,9 @@ Simply include the recipe where you want Tomcat on apache server with OpenAM ins
 
 This cookbook creates a new tomcat server by using our packaged tar ball stored in `S3`. This tar ball has changes to run tomcat behind apache2.
 
-The following change is needed in the apache2 cookbook. The tomcat tar bundle `server.xml` is equipped to handle the change.
+The following changes are needed in the apache2 cookbook. The tomcat tar bundle `server.xml` is equipped to handle the change.
 
-By default apache2 cookbook's mod_proxy_http.rb recipe contain the following code
+1. By default apache2 cookbook's mod_proxy_http.rb recipe contain the following code
 
 	apache_module "proxy_http"
 
@@ -85,6 +85,25 @@ You just need to change it as follows
 	apache_module "proxy_http" do
 	  conf true
 	end
+
+2. Create a file in /templates/default/mods/`proxy_http.conf.erb` with the following content
+
+	<IfModule mod_proxy_http.c>
+	  ProxyRequests Off
+	ProxyPreserveHost On
+	 
+	<Proxy *>
+	    Order deny,allow
+	    Allow from all
+	</Proxy>
+	 
+	ProxyPass /openam http://localhost:8081/openam
+	ProxyPassReverse /openam http://localhost:8081/openam
+	<Location /openam>
+	    Order allow,deny
+	    Allow from all
+	</Location>
+	</IfModule>
 
 full_stack
 ----------
