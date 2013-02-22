@@ -1,7 +1,16 @@
 Description
 ===========
 
-Installs and configures Tomcat version 7, OpenAM 10.0.
+Installs and configures
+Tomcat version 7.0.33 with OpenAM 10.1.0
+OpenAM provides Access Management, Federated SSO. For more information,
+[Forgerock - OpenAM](http://www.forgerock.org/openam.html)
+
+
+Where can this be used ?
+============
+Helps to setup an cloud indentity for your organization. Developers/Testers can standup an cloud identity to test against.
+
 
 Requirements
 ============
@@ -20,6 +29,7 @@ The following Opscode cookbooks are dependencies:
 
 Attributes
 ==========
+[OpenAM Configuration](http://openam.forgerock.org/openam-documentation/openam-doc-source/doc/install-guide/index.html)
 * `node["tomcat-openam"]["opendj"]["arg-val"]["baseDN"]` - LDAP BaseDN value, default `dc=example,dc=com`
 * `node["tomcat-openam"]["opendj"]["arg-val"]["rootUserDN"]` - LDAP root user name, default `'n=Directory Manager'`
 * `node["tomcat-openam"]["opendj"]["arg-val"]["rootUserPassword"]` - LDAP root user password, default `secret12`
@@ -56,11 +66,15 @@ Attributes
 Usage
 =====
 
-Simply include the recipe where you want Tomcat on apache server with OpenAM installed. This cookbook contains three different recipes, namely 
+Simply include the recipe where you want Tomcat on apache server with OpenAM installed. This cookbook contains three different recipes, namely
 
 	* full_stack
 	* vanilla
 	* configure
+
+This cookbook creates a new tomcat server by using our packaged tar ball stored in `S3`. This tar ball has changes to run tomcat behind apache2.
+
+The following change is needed in the apache2 cookbook. The tomcat tar bundle `server.xml` is equipped to handle the change.
 
 full_stack
 ----------
@@ -73,7 +87,7 @@ An example for a tomcat-openam full_stack role:
 
 vanilla
 -------
-This recipe installs apache2, java, tomcat7 and OpenAM in an instance. apache2 and tomcat7 has been configured in the same instance. But configuration of OpenAM needs OpenDJ. 
+This recipe installs apache2, java, tomcat7 and OpenAM in an instance. apache2 and tomcat7 has been configured in the same instance. But configuration of OpenAM needs OpenDJ.
 
 An example for a tomcat-openam vanilla role:
 
@@ -102,7 +116,7 @@ Author:: Kishore Kumar (<nkishore@megam.co.in>)
 Author:: Thomas Alrin (<alrin@megam.co.in>)
 
 
-Copyright:: 2012, Megam Systems
+Copyright:: 2013, Megam Systems
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
