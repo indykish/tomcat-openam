@@ -88,7 +88,7 @@ You just need to change it as follows
 
 2. Create a file in /templates/default/mods/`proxy_http.conf.erb` with the following content
 
-<dl>
+<code>
 
 <IfModule mod_proxy_http.c>
   ProxyRequests Off
@@ -107,7 +107,7 @@ ProxyPassReverse /openam http://localhost:8081/openam
 </Location>
 </IfModule>
 
-</dl>
+</code>
 
 full_stack
 ----------
