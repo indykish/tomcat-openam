@@ -78,7 +78,7 @@ This cookbook creates a new tomcat server by using our packaged tar ball stored 
 
 The following two changes are needed in the apache2 cookbook. The tomcat tar bundle `server.xml` is equipped to handle the change.
 
-* By default apache2 cookbook's mod_proxy_http.rb recipe contain the following code
+1. By default apache2 cookbook's mod_proxy_http.rb recipe contain the following code
 
 	apache_module "proxy_http"
 
@@ -88,7 +88,7 @@ You just need to change it as follows
 	  conf true
 	end
 
-* Create a file in /templates/default/mods/`proxy_http.conf.erb` with the following content
+2. Create a file in /templates/default/mods/`proxy_http.conf.erb` with the following content
 
 ```conf
 <IfModule mod_proxy_http.c>
